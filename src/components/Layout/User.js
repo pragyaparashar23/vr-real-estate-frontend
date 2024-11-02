@@ -66,7 +66,7 @@ export default function UserIcon() {
       navigate("/");
     }
     if (url === "profile") {
-      alert("clicked on profile");
+      navigate("/user-profile");
     }
   };
 
@@ -91,11 +91,11 @@ export default function UserIcon() {
                 onClick={() => handleNavigation(item.url)}
               >
                 <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                  {item.icon}
+                  {item?.icon}
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">
-                    {item.name}
+                    {item?.name}
                     <span className="absolute inset-0" />
                   </div>
                   {/* <p className="mt-1 text-gray-600">{item.description}</p> */}

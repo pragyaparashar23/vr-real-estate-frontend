@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Home,
   DollarSign,
@@ -11,6 +11,7 @@ import {
   ImageIcon,
   X,
 } from "lucide-react";
+import { baseUrl } from "../../config";
 
 const AddPropertyForm = () => {
   const [property, setProperty] = useState({
@@ -19,11 +20,100 @@ const AddPropertyForm = () => {
     bedrooms: 0,
     bathrooms: 0,
     squareFeet: 0,
-    garage: "",
+    garage: "none",
     description: "",
     features: [""],
     images: [],
+    title: "",
   });
+
+  const [userDetails, setUserDetails] = useState({});
+  const [previewImages, setPreviewImages] = useState([]);
+
+  const handleApiCallData = async () => {
+    try {
+      const formData = new FormData();
+      Object.entries(property).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          if (key === "images") {
+            console.log("value", value);
+            value.forEach((image) => {
+              console.log("image", image);
+              formData.append(key, image.file, image.subtitle);
+            });
+          } else {
+            value.forEach((item, index) => {
+              console.log("item", item);
+
+              formData.append(`${key}[${index}]`, item);
+            });
+          }
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+      console.log("formData", formData);
+
+      const response = await fetch(
+        `${baseUrl}/properties/create/property/${userDetails?._id}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      console.log("response ee ", data);
+      if (data) {
+        alert("Property added successfully");
+      } else {
+        alert("Something went wrong please try again");
+      }
+
+      // Optionally, you can redirect or perform other actions after successful submission
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
+  };
+
+  const handleApiCall = async () => {
+    try {
+      const formData = new FormData();
+      Object.entries(property).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          value.forEach((item, index) => {
+            formData.append(`${key}[${index}]`, item);
+          });
+        } else {
+          formData.append(key, value);
+        }
+      });
+
+      console.log("formData", formData);
+
+      const response = await fetch(
+        `${baseUrl}/properties/create/property/${userDetails?._id}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log("Property added successfully:", data);
+      // Optionally, you can redirect or perform other actions after successful submission
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,12 +135,25 @@ const AddPropertyForm = () => {
     setProperty((prev) => ({ ...prev, features: newFeatures }));
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = (e, title) => {
+    console.log("123 e", e);
+    // const files = e.target.files;
+    // const images = [];
+    // // let previewImages = [];
+    // for (let i = 0; i < files.length; i++) {
+    //   images.push(files[i]);
+    // }
+    // // previewImages.push(URL.createObjectURL(files[i]));
+
+    // setProperty((prev) => ({ ...prev, ...images }));
+
+    console.log("123 title", title);
+
     const files = Array.from(e.target.files);
     const newImages = files.map((file) => ({
       file,
       preview: URL.createObjectURL(file),
-      subtitle: "",
+      subtitle: title,
     }));
     setProperty((prev) => ({
       ...prev,
@@ -71,9 +174,17 @@ const AddPropertyForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    handleApiCallData();
     console.log("Property data submitted:", property);
     // Here you would typically send the data to your backend or state management system
   };
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userDetails"));
+    setUserDetails(user);
+  }, []);
+
+  console.log("Property data submitted:", property);
 
   return (
     <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden p-6">
@@ -81,6 +192,25 @@ const AddPropertyForm = () => {
         Add New Property
       </h1>
       <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Title
+          </label>
+          <div className="mt-1 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Home className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              type="text"
+              name="title"
+              value={property.title}
+              onChange={handleChange}
+              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+              placeholder="Title"
+              required
+            />
+          </div>
+        </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Address
@@ -192,14 +322,18 @@ const AddPropertyForm = () => {
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Car className="h-5 w-5 text-gray-400" />
             </div>
-            <input
-              type="text"
+            <select
               name="garage"
               value={property.garage}
               onChange={handleChange}
               className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
-              placeholder="2-car attached"
-            />
+            >
+              <option value="none">None</option>
+              <option value="1-car attached">1-car attached</option>
+              <option value="2-car attached">2-car attached</option>
+              <option value="3-car attached">3-car attached</option>
+              <option value="detached">Detached</option>
+            </select>
           </div>
         </div>
 
@@ -257,37 +391,36 @@ const AddPropertyForm = () => {
             Property Images
           </label>
           <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-            <div className="space-y-1 text-center">
-              <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
-              <div className="flex text-sm text-gray-600">
-                <label
-                  htmlFor="file-upload"
-                  className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+            {["Entrance", "Kitchen", "Bedroom", "Bathroom", "Living Room"].map(
+              (subtitle) => (
+                <button
+                  type="button"
+                  onClick={() =>
+                    document.getElementById(`file-upload-${subtitle}`).click()
+                  }
+                  className="relative ml-2 cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                 >
-                  <span>Upload images</span>
+                  <span>{subtitle} Image</span>
                   <input
-                    id="file-upload"
-                    name="file-upload"
+                    id={`file-upload-${subtitle}`}
+                    name={`file-upload-${subtitle}`}
                     type="file"
                     className="sr-only"
                     multiple
                     accept="image/*"
-                    onChange={handleImageUpload}
+                    onChange={(e) => handleImageUpload(e, subtitle)}
                   />
-                </label>
-                <p className="pl-1">or drag and drop</p>
-              </div>
-              <p className="text-xs text-gray-500">
-                PNG, JPG, GIF up to 10MB each
-              </p>
-            </div>
+                </button>
+              )
+            )}
           </div>
         </div>
 
-        {property.images.length > 0 && (
+        {property?.images?.length > 0 && (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {property.images.map((image, index) => (
+            {property?.images?.map((image, index) => (
               <div key={index} className="relative">
+                {console.log("preview image", image)}
                 <img
                   src={image.preview}
                   alt={`Preview ${index + 1}`}

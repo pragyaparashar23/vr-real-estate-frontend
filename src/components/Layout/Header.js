@@ -15,13 +15,13 @@ const Header = () => {
   useEffect(() => {
     setToken(localStorage.getItem("token"));
     setUserData(JSON.parse(localStorage.getItem("userDetails")));
-  }, [user]);
+  }, [user, logout]);
 
   return (
     <header className="bg-blue-500 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-white text-lg font-bold">
-          Real Estate Tours
+          Virtual Nest Tours
         </Link>
         <nav>
           {userData && token ? (
@@ -31,13 +31,21 @@ const Header = () => {
               </Link> */}
               {userData.role === "buyer" && (
                 <Link to="/tours" className="text-white mx-2 text-lg">
-                  Tours
+                  Scheduled Tours
                 </Link>
               )}
               {userData.role === "agent" && (
-                <Link to="/add-property" className="text-white mx-2 text-lg">
-                  Add property
-                </Link>
+                <>
+                  <Link to="/add-property" className="text-white mx-2 text-lg">
+                    Add property
+                  </Link>
+                  <Link
+                    to="/scheduled-tours"
+                    className="text-white mx-2 text-lg"
+                  >
+                    Tours
+                  </Link>
+                </>
               )}
 
               {/* <CircleUserRound

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../services/auth-provider";
 
 const RegisterPage = ({ history }) => {
-  const { register, error, loading, user } = useAuth();
+  const { register, error, loading, user, success, setSuccess } = useAuth();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,12 +17,14 @@ const RegisterPage = ({ history }) => {
     register(name, email, password, role);
   };
 
-  console.log("role", role);
-
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4">Register</h1>
       {error && <p className="text-red-500">{error}</p>}
+      {success && <p className="text-green-500">{success}</p>}
+      {loading && (
+        <p className="text-black-500">{"user registration is in progress"}</p>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700">Name</label>
@@ -68,7 +70,10 @@ const RegisterPage = ({ history }) => {
         <div className="w-full flex justify-between items-center">
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded"
+            className={`bg-blue-500 text-white px-4 py-2 rounded ${
+              loading ? `cursor-not-allowed` : `cursor-pointer`
+            }`}
+            disabled={loading ? true : false}
           >
             Register
           </button>

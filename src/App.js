@@ -19,6 +19,12 @@ import RegisterPage from "./components/Auth/Register";
 import LoginPage from "./pages/Login";
 import AddPropertyForm from "./components/Property-Add/Add-property";
 import AppProviders from "./services";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import UserProfile from "./components/profile/user";
+import "./App.css";
+import ScheduleTourList from "./components/Tours/ScheduleTourList";
+import AdminHomePage from "./components/admin/adminHomePage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,6 +38,17 @@ const App = () => {
     <AppProviders>
       <Router>
         <Header />
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <Routes>
           {(!token || !isAuthenticated) && (
             <>
@@ -40,10 +57,14 @@ const App = () => {
             </>
           )}
           <Route exact path="/" element={<PropertyList />} />
-          <Route exact path="/properties/:id" element={<PropertyDetails />} />
+          <Route exact path="/property/:id" element={<PropertyDetails />} />
           <Route exact path="/tours" element={<TourList />} />
+          <Route exact path="/scheduled-tours" element={<ScheduleTourList />} />
           <Route exact path="/schedule-tour" element={<ScheduleTour />} />
           <Route exact path="/add-property" element={<AddPropertyForm />} />
+          <Route exact path="/user-profile" element={<UserProfile />} />
+          <Route exact path="/admin" element={<AdminHomePage />} />
+          {/* {user?.role === 'admin' && <Route exact path="/admin" element={<AdminHomePage />} />} */}
           {/* Optionally redirect logged-in users away from login/register */}
           {(token || isAuthenticated) && (
             <>
