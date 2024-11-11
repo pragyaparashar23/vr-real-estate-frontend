@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../config";
 import { ViewUserModal } from "./viewModal";
+import { toast } from "react-toastify";
 
 function AdminHomePage() {
   const [users, setUsers] = useState([]);
@@ -70,6 +71,7 @@ function AdminHomePage() {
     axios
       .get(`${baseUrl}/admin/deleteUser/${id}`)
       .then((response) => {
+        toast.success("User deleted successfully");
         setUsers(users.filter((user) => user._id !== id));
       })
       .catch((error) => {
@@ -81,6 +83,7 @@ function AdminHomePage() {
     axios
       .get(`${baseUrl}/admin/deleteProperty/${id}`)
       .then((response) => {
+        toast.success("Property deleted successfully");
         setProperties(properties.filter((property) => property._id !== id));
       })
       .catch((error) => {
@@ -92,6 +95,7 @@ function AdminHomePage() {
     axios
       .get(`${baseUrl}/admin/deleteTour/${id}`)
       .then((response) => {
+        toast.success("Tour deleted successfully");
         setTours(tours.filter((tour) => tour._id !== id));
       })
       .catch((error) => {
@@ -103,6 +107,7 @@ function AdminHomePage() {
     axios
       .get(`${baseUrl}/admin/deleteRatingAndReview/${id}`)
       .then((response) => {
+        toast.success("Rating deleted successfully");
         setRatings(ratings.filter((rating) => rating._id !== id));
       })
       .catch((error) => {
