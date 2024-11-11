@@ -8,7 +8,7 @@ export const getProperties = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: "GET_PROPERTIES_FAIL",
-      payload: err.response.data.message,
+      payload: err.response?.data?.message,
     });
   }
 };
@@ -18,7 +18,10 @@ export const getProperty = (id) => async (dispatch) => {
     const res = await axios.get(`${baseUrl}/properties/${id}`);
     dispatch({ type: "GET_PROPERTY_SUCCESS", payload: res.data });
   } catch (err) {
-    dispatch({ type: "GET_PROPERTY_FAIL", payload: err.response.data.message });
+    dispatch({
+      type: "GET_PROPERTY_FAIL",
+      payload: err.response?.data?.message,
+    });
   }
 };
 
@@ -38,7 +41,7 @@ export const createProperty = (propertyData) => async (dispatch, getState) => {
   } catch (err) {
     dispatch({
       type: "CREATE_PROPERTY_FAIL",
-      payload: err.response.data.message,
+      payload: err.response?.data?.message,
     });
   }
 };
@@ -60,7 +63,7 @@ export const updateProperty =
     } catch (err) {
       dispatch({
         type: "UPDATE_PROPERTY_FAIL",
-        payload: err.response.data.message,
+        payload: err.response?.data?.message,
       });
     }
   };
@@ -77,7 +80,7 @@ export const deleteProperty = (id) => async (dispatch, getState) => {
   } catch (err) {
     dispatch({
       type: "DELETE_PROPERTY_FAIL",
-      payload: err.response.data.message,
+      payload: err.response?.data?.message,
     });
   }
 };

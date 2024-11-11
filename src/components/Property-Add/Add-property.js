@@ -17,9 +17,9 @@ const AddPropertyForm = () => {
   const [property, setProperty] = useState({
     address: "",
     price: "",
-    bedrooms: 0,
-    bathrooms: 0,
-    squareFeet: 0,
+    bedrooms: null,
+    bathrooms: null,
+    squareFeet: null,
     garage: "none",
     description: "",
     features: [""],
@@ -194,7 +194,7 @@ const AddPropertyForm = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Title
+            Title *
           </label>
           <div className="mt-1 relative rounded-md shadow-sm">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -213,7 +213,7 @@ const AddPropertyForm = () => {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Address
+            Address *
           </label>
           <div className="mt-1 relative rounded-md shadow-sm">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -234,27 +234,29 @@ const AddPropertyForm = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Price
+              Price *
             </label>
             <div className="mt-1 relative rounded-md shadow-sm">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <DollarSign className="h-5 w-5 text-gray-400" />
               </div>
               <input
-                type="text"
+                type="number"
                 name="price"
                 value={property.price}
                 onChange={handleChange}
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
-                placeholder="1,000,000"
+                placeholder="1000000"
                 required
+                min="1"
+                step="1"
               />
             </div>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Square Feet
+              Square Feet *
             </label>
             <div className="mt-1 relative rounded-md shadow-sm">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -268,13 +270,15 @@ const AddPropertyForm = () => {
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
                 placeholder="2000"
                 required
+                min="1"
+                step="1"
               />
             </div>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Bedrooms
+              Bedrooms *
             </label>
             <div className="mt-1 relative rounded-md shadow-sm">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -288,13 +292,15 @@ const AddPropertyForm = () => {
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
                 placeholder="3"
                 required
+                min="1"
+                step="1"
               />
             </div>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Bathrooms
+              Bathrooms *
             </label>
             <div className="mt-1 relative rounded-md shadow-sm">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -309,6 +315,7 @@ const AddPropertyForm = () => {
                 placeholder="2.5"
                 step="0.5"
                 required
+                min="1"
               />
             </div>
           </div>
@@ -316,7 +323,7 @@ const AddPropertyForm = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Garage
+            Garage *
           </label>
           <div className="mt-1 relative rounded-md shadow-sm">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -339,7 +346,7 @@ const AddPropertyForm = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Description
+            Description *
           </label>
           <div className="mt-1">
             <textarea
@@ -388,7 +395,7 @@ const AddPropertyForm = () => {
         {/*  */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Property Images
+            Property Images *
           </label>
           <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
             {["Entrance", "Kitchen", "Bedroom", "Bathroom", "Living Room"].map(

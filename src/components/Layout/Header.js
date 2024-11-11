@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import UserIcon from "./User";
 import { useAuth } from "../../services/auth-provider";
+import Logo from "../../assests/sliderImage/logo.jpeg";
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -20,9 +21,13 @@ const Header = () => {
   return (
     <header className="bg-blue-500 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-white text-lg font-bold">
-          Virtual Nest Tours
-        </Link>
+        {/* add logo here */}
+        <div className="flex items-center gap-5">
+          <img src={Logo} className="w-12 h-12" alt="logo" />
+          <Link to="/" className="text-white text-lg font-bold">
+            Virtual Nest Tours
+          </Link>
+        </div>
         <nav>
           {userData && token ? (
             <div className="flex items-center gap-4 ">

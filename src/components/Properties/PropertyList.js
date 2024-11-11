@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProperties } from "../../actions/propertyActions";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +13,9 @@ import EntranceImage from "../../assests/images/entrance.jpg";
 import EntranceImage1 from "../../assests/images/entrance2.jpg";
 import LivingImage1 from "../../assests/images/livingroom.jpg";
 import { imageUrl } from "../../config";
+import SliderOne from "../../assests/sliderImage/sliderOne.jpeg";
+import SliderTwo from "../../assests/sliderImage/sliderTwo.jpeg";
+import Logo from "../../assests/sliderImage/logo.jpeg";
 
 const propertyData = [
   {
@@ -210,6 +213,15 @@ const PropertyList = () => {
   const ud = localStorage.getItem("userDetails");
   const user = JSON.parse(ud);
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const handleSlideChange = (e) => {
+    const target = e.target;
+    if (target.tagName === "INPUT") {
+      setCurrentSlide(Number(target.id.split("-")[1]) - 1);
+    }
+  };
+
   if (user?.role === "admin") {
     navigate("/admin");
   }
@@ -217,6 +229,13 @@ const PropertyList = () => {
   useEffect(() => {
     dispatch(getProperties());
   }, [dispatch]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % properties.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -227,57 +246,147 @@ const PropertyList = () => {
     "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500";
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">
-        Featured Properties
-      </h1>
-      <div className="flex flex-col md:flex-row gap-8">
-        {/* <div className="md:w-1/4 lg:w-1/5">
-          <PropertyFilter />
-        </div> */}
-        <div className="md:w-3/4 lg:w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {properties?.data?.map((property, id) => (
+    <>
+      <div className="carousel-item w-full" style={{ height: "60vh" }}>
+        <img
+          src={SliderTwo}
+          alt="slide 3"
+          className="flex w-full"
+          style={{ height: "100%" }}
+        />
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        {/* <div className="flex items-center justify-center">
+          <div className="carousel relative shadow-2xl bg-white">
+            <div className="carousel-inner relative overflow-hidden w-full">
+              <input
+                className="carousel-open"
+                type="radio"
+                id="carousel-1"
+                name="carousel"
+                aria-hidden="true"
+                hidden=""
+                checked="checked"
+              />
               <div
-                key={id}
-                className="bg-white rounded-lg shadow-md overflow-hidden"
+                className="carousel-item absolute "
+                style={{ height: "50vh" }}
               >
                 <img
-                  src={imageUrl + property?.images[0]?.url}
-                  alt={"Property"}
-                  className="w-full h-48 object-cover"
+                  src={SliderOne}
+                  alt="slide 1"
+                  className="block w-full"
+                  style={{ height: "100%" }}
                 />
-                <div className="p-4">
-                  <h2 className="text-lg font-semibold mb-2 text-gray-800">
-                    {property?.title}
-                  </h2>
-                  <p className="text-gray-600 mb-4 text-sm">
-                    {property?.description.slice(0, 50)}...
-                  </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-blue-600 font-bold">
-                      $ {property?.price}
-                    </span>
-                    <Link
-                      to={`/property/${property?._id}`}
-                      className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition duration-300"
-                    >
-                      View Property
-                    </Link>
+              </div>
+              <input
+                className="carousel-open"
+                type="radio"
+                id="carousel-2"
+                name="carousel"
+                aria-hidden="true"
+                hidden=""
+              />
+              <div
+                className="carousel-item absolute "
+                style={{ height: "50vh" }}
+              >
+                <img
+                  src={SliderTwo}
+                  alt="slide 2"
+                  className="block w-full"
+                  style={{ height: "100%" }}
+                />
+              </div>
+              <input
+                className="carousel-open"
+                type="radio"
+                id="carousel-3"
+                name="carousel"
+                aria-hidden="true"
+                hidden=""
+              />
+              <div
+                className="carousel-item absolute"
+                style={{ height: "50vh" }}
+              >
+                <img
+                  src={SliderOne}
+                  alt="slide 3"
+                  className="flex w-full"
+                  style={{ height: "100%" }}
+                />
+              </div>
+            </div>
+            <div className="carousel-indicators">
+              <label
+                htmlFor="carousel-1"
+                className="carousel-bullet cursor-pointer block text-4xl text-white hover:text-gray-900"
+              ></label>
+              <label
+                htmlFor="carousel-2"
+                className="carousel-bullet cursor-pointer block text-4xl text-white hover:text-gray-900"
+              ></label>
+              <label
+                htmlFor="carousel-3"
+                className="carousel-bullet cursor-pointer block text-4xl text-white hover:text-gray-900"
+              ></label>
+            </div>
+          </div>
+        </div> */}
+
+        <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">
+          Featured Properties
+        </h1>
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* <div className="md:w-1/4 lg:w-1/5">
+          <PropertyFilter />
+        </div> */}
+          <div className="md:w-3/4 lg:w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {properties?.data?.map((property, id) => (
+                <div
+                  key={id}
+                  className="bg-white rounded-lg shadow-md overflow-hidden"
+                >
+                  <img
+                    src={imageUrl + property?.images[0]?.url}
+                    alt={"Property"}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-4">
+                    <h2 className="text-lg font-semibold mb-2 text-gray-800">
+                      {property?.title}
+                    </h2>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      {property?.description.slice(0, 50)}...
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-blue-600 font-bold">
+                        $ {property?.price}
+                      </span>
+                      <Link
+                        to={`/property/${property?._id}`}
+                        className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition duration-300"
+                      >
+                        View Property
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
-            {properties?.data?.length === 0 && (
-              <p className="text-lg font-bold text-center">
-                No properties found
-              </p>
-            )}
+              {properties?.data?.length === 0 && (
+                <p className="text-lg font-bold text-center">
+                  No properties found
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 
   // return (
