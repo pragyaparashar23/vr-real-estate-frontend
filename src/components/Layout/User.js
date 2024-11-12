@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../../services/auth-provider";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const solutions = [
   {
@@ -64,6 +65,10 @@ export default function UserIcon() {
     if (url === "logout") {
       logout();
       navigate("/");
+      toast.success("Logged out successfully");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
     if (url === "profile") {
       navigate("/user-profile");
