@@ -4,6 +4,10 @@ import "aframe-event-set-component";
 import { imageUrl } from "../../config";
 import { imageList } from "../../imageList";
 
+import bedroom1 from "../../assests/images11/bedroom.jpeg";
+import livingroom1 from "../../assests/images11/living.jpeg";
+import washroom1 from "../../assests/images11/washroom.jpeg";
+
 // ... (previous hotspot registration code remains the same)
 
 const VRPropertyTour1 = ({ url, data }) => {
@@ -50,6 +54,20 @@ const VRPropertyTour1 = ({ url, data }) => {
       title: "livingroom",
       image:
         "https://plus.unsplash.com/premium_photo-1661407582641-9ce38a3c8402?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGl2aW5nJTIwcm9vbSUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D",
+    },
+    {
+      title: "bedroom1",
+      image: "https://images.pexels.com/photos/90317/pexels-photo-90317.jpeg",
+    },
+    {
+      title: "washroom1",
+      image:
+        "https://images.pexels.com/photos/13757468/pexels-photo-13757468.jpeg",
+    },
+    {
+      title: "livingroom1",
+      image:
+        "https://images.pexels.com/photos/7534561/pexels-photo-7534561.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     },
   ];
 
@@ -158,18 +176,28 @@ const VRPropertyTour1 = ({ url, data }) => {
         {
           position: "-6 0 -5",
           to: "#kitchen",
-          label: "",
+          label: "kitchen",
         },
         {
           position: "-6 0 9",
           to: "#bedroom",
-          label: "",
+          label: "bedroom",
         },
 
         {
-          position: "-6 0 -6",
-          to: "#bathroom",
-          label: "",
+          position: "2 0 -6",
+          to: "#livingroom1",
+          label: "livingroom",
+        },
+        {
+          position: "3 0 1",
+          to: "#washroom1",
+          label: "washroom",
+        },
+        {
+          position: "3 0 0",
+          to: "#bedroom1",
+          label: "second bedroom",
         },
       ],
     },
@@ -178,8 +206,11 @@ const VRPropertyTour1 = ({ url, data }) => {
       skyUrl: images[1]?.image,
       hotspots: [
         { position: "-5 0 0", to: "#entrance", label: "Back to Entrance" },
-        { position: "-6 0 12", to: "#bedroom", label: "" },
-        { position: "-6 0 -5", to: "#bathroom", label: "" },
+        { position: "-6 0 12", to: "#bedroom", label: "bedroom" },
+        { position: "-6 0 -5", to: "#bathroom", label: "bathroom" },
+        { position: "-6 0 10", to: "#livingroom1", label: "livingroom" },
+        { position: "3 0 1", to: "#washroom1", label: "washroom" },
+        { position: "3 0 0", to: "#bedroom1", label: "second bedroom" },
       ],
     },
 
@@ -187,27 +218,70 @@ const VRPropertyTour1 = ({ url, data }) => {
       skyUrl: images[2]?.image,
       hotspots: [
         { position: "3 0 3", to: "#entrance", label: "Back to entrance" },
-        { position: "3 0 3", to: "#kitchen", label: "" },
-        { position: "3 0 5", to: "#bathroom", label: "" },
+        { position: "3 0 3", to: "#kitchen", label: "kitchen" },
+        { position: "3 0 5", to: "#bathroom", label: "bathroom" },
+        { position: "3 0 10", to: "#livingroom1", label: "livingroom" },
+        { position: "3 0 1", to: "#washroom1", label: "washroom" },
+        { position: "3 0 0", to: "#bedroom1", label: "second bedroom" },
       ],
     },
     livingroom: {
-      skyUrl: images[3]?.image,
+      skyUrl: images[4]?.image,
       hotspots: [
         { position: "-3 0 3", to: "#entrance", label: "Back to entrance" },
 
-        { position: "-3 0 2", to: "#kitchen", label: "" },
-        { position: "-3 0 -3", to: "#bedroom", label: "" },
-        { position: "-3 0 -5", to: "#bathroom", label: "" },
+        { position: "-3 0 2", to: "#kitchen", label: "kitchen" },
+        { position: "-3 0 -3", to: "#bedroom", label: "bedroom" },
+        { position: "-3 0 -5", to: "#bathroom", label: "bathroom" },
+        { position: "3 0 10", to: "#livingroom1", label: "livingroom" },
+        { position: "3 0 1", to: "#washroom1", label: "washroom" },
+        { position: "3 0 0", to: "#bedroom1", label: "second bedroom" },
       ],
     },
     bathroom: {
-      skyUrl: images[4]?.image,
+      skyUrl: images[3]?.image,
+      hotspots: [
+        { position: "-3 0 -8", to: "#entrance", label: "Back to entrance" },
+
+        { position: "-3 0 1", to: "#kitchen", label: "kitchen" },
+        { position: "-3 0 -3", to: "#bedroom", label: "bedroom" },
+        { position: "3 0 10", to: "#livingroom1", label: "livingroom" },
+        { position: "3 0 1", to: "#washroom1", label: "washroom" },
+        { position: "3 0 0", to: "#bedroom1", label: "second bedroom" },
+      ],
+    },
+
+    washroom1: {
+      skyUrl: images[6]?.image,
       hotspots: [
         { position: "-3 0 -8", to: "#entrance", label: "Back to entranc" },
 
-        { position: "-3 0 1", to: "#kitchen", label: "" },
-        { position: "-3 0 -3", to: "#bedroom", label: "" },
+        { position: "-3 0 1", to: "#kitchen", label: "kitchen" },
+        { position: "-3 0 -3", to: "#bedroom", label: "bedroom" },
+        { position: "3 0 10", to: "#livingroom1", label: "livingroom" },
+        { position: "3 0 0", to: "#bedroom1", label: "second bedroom" },
+      ],
+    },
+
+    bedroom1: {
+      skyUrl: images[6]?.image,
+      hotspots: [
+        { position: "3 0 3", to: "#entrance", label: "Back to entrance" },
+        { position: "3 0 3", to: "#kitchen", label: "kitchen" },
+        { position: "3 0 5", to: "#bathroom", label: "bathroom" },
+        { position: "3 0 10", to: "#livingroom1", label: "livingroom" },
+        { position: "3 0 1", to: "#washroom1", label: "washroom" },
+      ],
+    },
+    livingroom1: {
+      skyUrl: images[7]?.image,
+      hotspots: [
+        { position: "-3 0 3", to: "#entrance", label: "Back to entrance" },
+        { position: "-3 0 2", to: "#kitchen", label: "kitchen" },
+        { position: "-3 0 -3", to: "#bedroom", label: "bedroom" },
+        { position: "-3 0 -5", to: "#bathroom", label: "bathroom " },
+        { position: "3 0 1", to: "#washroom1", label: "washroom" },
+        { position: "3 0 0", to: "#bedroom1", label: "second bedroom" },
       ],
     },
   };
