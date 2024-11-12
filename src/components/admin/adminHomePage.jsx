@@ -244,20 +244,20 @@ function AdminHomePage() {
                         className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         onClick={() => {
                           setShowModal(true);
-                          setSingleData({ user: user });
+                          setSingleData({ user: user, type: "view" });
                         }}
                       >
                         View
                       </button>
-                      <button
+                      {/* <button
                         className="ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                         onClick={() => {
                           setShowModal(true);
-                          setSingleData({ user: user });
+                          setSingleData({ user: user, type: "update" });
                         }}
                       >
                         Update
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                 ))}
@@ -307,20 +307,20 @@ function AdminHomePage() {
                         className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         onClick={() => {
                           setShowModal(true);
-                          setSingleData({ property: property });
+                          setSingleData({ property: property, type: "view" });
                         }}
                       >
                         View
                       </button>
-                      <button
+                      {/* <button
                         className="ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                         onClick={() => {
                           setShowModal(true);
-                          setSingleData({ property: property });
+                          setSingleData({ property: property, type: "update" });
                         }}
                       >
                         Update
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                 ))}
@@ -378,20 +378,20 @@ function AdminHomePage() {
                         className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         onClick={() => {
                           setShowModal(true);
-                          setSingleData({ tour: tour });
+                          setSingleData({ tour: tour, type: "view" });
                         }}
                       >
                         View
                       </button>
-                      <button
+                      {/* <button
                         className="ml-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                         onClick={() => {
                           setShowModal(true);
-                          setSingleData({ tour: tour });
+                          setSingleData({ tour: tour, type: "update" });
                         }}
                       >
                         Update
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                 ))}
@@ -509,6 +509,7 @@ function AdminHomePage() {
         propertyData={singleData.property}
         tourData={singleData.tour}
         ratingData={singleData.rating}
+        type={singleData.type}
       >
         <p>User Details</p>
       </ViewUserModal>

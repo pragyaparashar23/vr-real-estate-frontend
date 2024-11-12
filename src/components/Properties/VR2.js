@@ -41,6 +41,16 @@ const VRPropertyTour1 = ({ url, data }) => {
       image:
         "https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?cs=srgb&dl=pexels-pixabay-262048.jpg&fm=jpg",
     },
+    {
+      title: "bathroom",
+      image:
+        "https://c4.wallpaperflare.com/wallpaper/985/875/592/blender-bathroom-interior-design-wallpaper-preview.jpg",
+    },
+    {
+      title: "livingroom",
+      image:
+        "https://plus.unsplash.com/premium_photo-1661407582641-9ce38a3c8402?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGl2aW5nJTIwcm9vbSUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D",
+    },
   ];
 
   const handleZoom = (delta) => {
@@ -143,165 +153,61 @@ const VRPropertyTour1 = ({ url, data }) => {
 
   const scenes = {
     entrance: {
-      skyUrl: imageList[0]?.url,
+      skyUrl: images[0]?.image,
       hotspots: [
-        // {
-        //   position: "-6 0 -1",
-        //   to: "#livingRoom",
-        //   label: data[0]?.images[0].title,
-        // },
         {
           position: "-6 0 -5",
           to: "#kitchen",
-          label: "Go to Kitchen",
+          label: "",
         },
         {
-          position: "-6 0 6",
+          position: "-6 0 9",
           to: "#bedroom",
-          label: "Go to Bedroom",
+          label: "",
         },
-        {
-          position: "-6 0 0",
-          to: "#livingroom",
-          label: "Go to Living Room",
-        },
+
         {
           position: "-6 0 -6",
           to: "#bathroom",
-          label: "Go to Bathroom",
+          label: "",
         },
-        // {
-        //   position: "0 -1 -3",
-        //   infoLabel: "House Info",
-        //   info: "Welcome to this beautiful 3-bedroom, 2.5-bath home with an open floor plan and modern finishes.",
-        // },
       ],
     },
-    // livingRoom: {
-    //   skyUrl: url.imageTwo,
-    //   hotspots: [
-    //     { position: "5 0 0", to: "#kitchen", label: "Go to Kitchen" },
-    //     { position: "0 0 5", to: "#entrance", label: "Back to Entrance" },
-    //     { position: "-4 0 -2", to: "#diningRoom", label: "To Dining Room" },
-    //     {
-    //       position: "0 -1 -3",
-    //       infoLabel: "Living Room Info",
-    //       info: "Spacious living room with large windows, hardwood floors, and a cozy fireplace.",
-    //     },
-    //   ],
-    // },
+
     kitchen: {
-      skyUrl: imageList[1]?.url,
+      skyUrl: images[1]?.image,
       hotspots: [
         { position: "-5 0 0", to: "#entrance", label: "Back to Entrance" },
-        // { position: "-6 0 0", to: "#livingroom", label: "Go to Living Room" },
-        { position: "-6 0 -6", to: "#bedroom", label: "Go to Bedroom" },
-        { position: "-6 0 -5", to: "#bathroom", label: "Go to Bathroom" },
-        // { position: "0 0 -5", to: "#diningRoom", label: "To Dining Room" },
-        // {
-        //   position: "0 -1 -3",
-        //   infoLabel: "Kitchen Info",
-        //   info: "Modern kitchen with stainless steel appliances, quartz countertops, and a large island.",
-        // },
+        { position: "-6 0 12", to: "#bedroom", label: "" },
+        { position: "-6 0 -5", to: "#bathroom", label: "" },
       ],
     },
-    // diningRoom: {
-    //   skyUrl: url.imageThree,
-    //   hotspots: [
-    //     { position: "0 0 5", to: "#kitchen", label: "Back to Kitchen" },
-    //     { position: "5 0 0", to: "#livingRoom", label: "To Living Room" },
-    //     {
-    //       position: "0 -1 -3",
-    //       infoLabel: "Dining Room Info",
-    //       info: "Elegant dining room with chandelier and built-in china cabinet.",
-    //     },
-    //   ],
-    // },
-    // stairs: {
-    //   skyUrl: url.imageTwo,
-    //   hotspots: [
-    //     { position: "0 -2 -5", to: "#entrance", label: "Back to Entrance" },
-    //     { position: "0 2 5", to: "#upstairsHall", label: "Go Upstairs" },
-    //     {
-    //       position: "0 -1 -3",
-    //       infoLabel: "Stairs Info",
-    //       info: "Beautiful hardwood staircase with wrought iron balusters.",
-    //     },
-    //   ],
-    // },
-    // upstairsHall: {
-    //   skyUrl: url.imageOne,
-    //   hotspots: [
-    //     { position: "0 -2 -5", to: "#stairs", label: "Go Downstairs" },
-    //     { position: "5 0 0", to: "#masterBedroom", label: "Master Bedroom" },
-    //     { position: "-3 0 -3", to: "#bedroom2", label: "Bedroom 2" },
-    //     { position: "3 0 -3", to: "#bedroom3", label: "Bedroom 3" },
-    //     {
-    //       position: "0 -1 -3",
-    //       infoLabel: "Upstairs Info",
-    //       info: "Upstairs features 3 bedrooms and 2 full bathrooms.",
-    //     },
-    //   ],
-    // },
-    // masterBedroom: {
-    //   skyUrl: url.imageFour,
-    //   hotspots: [
-    //     { position: "-5 0 0", to: "#upstairsHall", label: "Back to Hall" },
-    //     { position: "3 0 -3", to: "#masterBath", label: "Master Bathroom" },
-    //     {
-    //       position: "0 -1 -3",
-    //       infoLabel: "Master Bedroom Info",
-    //       info: "Spacious master bedroom with en-suite bathroom and walk-in closet.",
-    //     },
-    //   ],
-    // },
-    // masterBath: {
-    //   skyUrl: url.imageThree,
-    //   hotspots: [
-    //     {
-    //       position: "-3 0 3",
-    //       to: "#masterBedroom",
-    //       label: "Back to Master Bedroom",
-    //     },
-    //     {
-    //       position: "0 -1 -3",
-    //       infoLabel: "Master Bath Info",
-    //       info: "Luxurious master bathroom with double vanity, soaking tub, and large walk-in shower.",
-    //     },
-    //   ],
-    // },
+
     bedroom: {
-      skyUrl: imageList[2]?.url,
+      skyUrl: images[2]?.image,
       hotspots: [
         { position: "3 0 3", to: "#entrance", label: "Back to entrance" },
-        { position: "3 0 3", to: "#kitchen", label: "Go to kitchen" },
-        // { position: "3 0 -3", to: "#livingroom", label: "Go to Living Room" },
-        { position: "3 0 -5", to: "#bathroom", label: "Go to Bathroom" },
-        // {
-        //   position: "0 -1 -3",
-        //   infoLabel: "Bedroom 2 Info",
-        //   info: "Comfortable second bedroom with large closet and plenty of natural light.",
-        // },
+        { position: "3 0 3", to: "#kitchen", label: "" },
+        { position: "3 0 5", to: "#bathroom", label: "" },
       ],
     },
     livingroom: {
-      skyUrl: imageList[3]?.url,
+      skyUrl: images[3]?.image,
       hotspots: [
         { position: "-3 0 3", to: "#entrance", label: "Back to entrance" },
 
-        { position: "-3 0 3", to: "#kitchen", label: "Go to kitchen" },
-        { position: "-3 0 -3", to: "#bedroom", label: "Go to Bedroom" },
-        { position: "-3 0 -5", to: "#bathroom", label: "Go to Bathroom" },
+        { position: "-3 0 2", to: "#kitchen", label: "" },
+        { position: "-3 0 -3", to: "#bedroom", label: "" },
+        { position: "-3 0 -5", to: "#bathroom", label: "" },
       ],
     },
     bathroom: {
-      skyUrl: imageList[4]?.url,
+      skyUrl: images[4]?.image,
       hotspots: [
-        { position: "-3 0 3", to: "#entrance", label: "Back to entrance" },
+        { position: "-3 0 -8", to: "#entrance", label: "Back to entranc" },
 
-        { position: "-3 0 3", to: "#kitchen", label: "Go to kitchen" },
-        { position: "-3 0 -3", to: "#bedroom", label: "Go to Bedroom" },
-        { position: "-3 0 -5", to: "#livingroom", label: "Go to Living Room" },
+        { position: "-3 0 1", to: "#kitchen", label: "" },
+        { position: "-3 0 -3", to: "#bedroom", label: "" },
       ],
     },
   };

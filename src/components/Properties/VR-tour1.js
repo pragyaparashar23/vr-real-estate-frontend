@@ -60,6 +60,14 @@ const VRPropertyTour = ({ url }) => {
     setShowInfo(true);
   };
 
+  const homeEntranceImage =
+    "https://www.shutterstock.com/image-illustration/new-house-wooden-door-empty-260nw-1692961513.jpg";
+  const livingRoomImage =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScAVGhdLr7TSrF9x1N0gIOzEy81ZF2uNEFag&s";
+  const kitchenImage = "";
+  const bedroomImage = "";
+  const bathroomImage = "";
+
   useEffect(() => {
     window.navigateToScene = navigateToScene;
     window.showPropertyInfo = showPropertyInfo;
@@ -84,16 +92,10 @@ const VRPropertyTour = ({ url }) => {
       ],
     },
     livingRoom: {
-      skyUrl: url.imageTwo,
+      skyUrl: livingRoomImage,
       hotspots: [
         { position: "5 0 0", to: "#kitchen", label: "Go to Kitchen" },
         { position: "0 0 5", to: "#entrance", label: "Back to Entrance" },
-        { position: "-4 0 -2", to: "#diningRoom", label: "To Dining Room" },
-        {
-          position: "0 -1 -3",
-          infoLabel: "Living Room Info",
-          info: "Spacious living room with large windows, hardwood floors, and a cozy fireplace.",
-        },
       ],
     },
     kitchen: {

@@ -8,13 +8,49 @@ export const ViewUserModal = ({
   propertyData,
   tourData,
   ratingData,
+  type,
 }) => {
-  if (!isOpen) return null;
+  const [updatedUserData, setUpdatedUserData] = useState({
+    name: userData?.name,
+    notificationPreference: userData?.notificationPreference,
+    role: userData?.role,
+    email: userData?.email,
+  });
+  const [updatedPropertyData, setUpdatedPropertyData] = useState({
+    address: propertyData?.address,
+    agent: propertyData?.agent,
+    availability: propertyData?.availability,
+    bathrooms: propertyData?.bathrooms,
+    bedrooms: propertyData?.bedrooms,
+    description: propertyData?.description,
+    features: propertyData?.features,
+    garage: propertyData?.garage,
+    price: propertyData?.price,
+    squareFeet: propertyData?.squareFeet,
+    status: propertyData?.status,
+    title: propertyData?.title,
+  });
+  const [updatedTourData, setUpdatedTourData] = useState({
+    agent: tourData?.agent,
+    buyer: tourData?.buyer,
+    isRated: tourData?.isRated,
+    property: tourData?.property,
+    createdAt: tourData?.createdAt,
+    status: tourData?.status,
+  });
 
+  if (!isOpen) return null;
   console.log("userData", userData);
   console.log("propertyData", propertyData);
   console.log("tourData", tourData);
   console.log("ratingData", ratingData);
+
+  const handleUpdateUser = async () => {
+    console.log("updatedUserData", updatedUserData);
+  };
+  const handleUpdateTour = async () => {
+    console.log("updatedTourData", updatedTourData);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -38,7 +74,66 @@ export const ViewUserModal = ({
         </div>
 
         {/* user Details Content */}
-        {userData && (
+        {userData && type === "update" && (
+          <div className="p-4">
+            <p className="mb-2">
+              <strong>Email:</strong> {userData?.email}
+            </p>
+            <p className="mb-2">
+              <strong>Name:</strong>
+              <input
+                type="text"
+                className="border border-gray-300 rounded-md p-1"
+                value={updatedUserData.name}
+                onChange={(e) =>
+                  setUpdatedUserData({
+                    ...updatedUserData,
+                    name: e.target.value,
+                  })
+                }
+              />
+            </p>
+            <p className="mb-2">
+              <strong>Update Notification Preference:</strong>{" "}
+              <select
+                value={updatedUserData.notificationPreference ? "Yes" : "No"}
+                onChange={(e) =>
+                  setUpdatedUserData({
+                    ...updatedUserData,
+                    notificationPreference: e.target.value === "Yes",
+                  })
+                }
+              >
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </p>
+            <p className="mb-2">
+              <strong>Update Role:</strong>
+              <select
+                value={updatedUserData.role}
+                onChange={(e) =>
+                  setUpdatedUserData({
+                    ...updatedUserData,
+                    role: e.target.value,
+                  })
+                }
+              >
+                <option value="admin">Admin</option>
+                <option value="client">Client</option>
+                <option value="agent">Agent</option>
+              </select>
+            </p>
+            <button
+              onClick={() => handleUpdateUser(updatedUserData)}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            >
+              Update
+            </button>
+          </div>
+        )}
+
+        {userData && type === "view" && (
           <div className="p-4">
             <p className="mb-2">
               <strong>Email:</strong> {userData?.email}
@@ -55,8 +150,9 @@ export const ViewUserModal = ({
             </p>
           </div>
         )}
+
         {/* property Details Content */}
-        {propertyData && (
+        {propertyData && type === "view" && (
           <div className="p-4">
             <p className="mb-2">
               <strong>Address:</strong> {propertyData?.address}
@@ -104,7 +200,7 @@ export const ViewUserModal = ({
           </div>
         )}
         {/* tour Details Content */}
-        {tourData && (
+        {tourData && type === "view" && (
           <div className="p-4">
             <p className="mb-2">
               <strong>Agent Email:</strong> {tourData?.agent.email}
@@ -147,6 +243,33 @@ export const ViewUserModal = ({
             </p>
           </div>
         )}
+        {tourData && type === "update" && (
+          <div className="p-4">
+            <p className="mb-2">
+              <strong>Status:</strong>{" "}
+              <select
+                value={updatedTourData.status}
+                onChange={(e) =>
+                  setUpdatedTourData({
+                    ...updatedTourData,
+                    status: e.target.value,
+                  })
+                }
+              >
+                <option value="pending">Pending</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </p>
+            <button
+              onClick={() => handleUpdateTour(updatedTourData)}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            >
+              Update
+            </button>
+          </div>
+        )}
+
         {/* rating Details Content */}
         {ratingData && (
           <div className="p-4">
